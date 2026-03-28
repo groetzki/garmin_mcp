@@ -15,9 +15,13 @@ dependencies = [
     "mcp>=1.23.0",
 ]
 
+[project.optional-dependencies]
+browser = ["playwright>=1.40.0"]
+
 [project.scripts]
 garmin-mcp = "garmin_mcp:main"
 garmin-mcp-auth = "garmin_mcp.auth_cli:main"
+garmin-mcp-browser-auth = "garmin_mcp.browser_auth:main"
 
 [tool.hatch.metadata]
 allow-direct-references = true
