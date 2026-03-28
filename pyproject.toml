@@ -10,15 +10,17 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "python-dotenv==1.0.1",
-    "garminconnect==0.2.38",
+    "garminconnect @ git+https://github.com/cyberjunky/python-garminconnect@react",
     "requests==2.32.4",
     "mcp>=1.23.0",
-    "garth>=0.5.17,<0.6.0",
 ]
 
 [project.scripts]
 garmin-mcp = "garmin_mcp:main"
 garmin-mcp-auth = "garmin_mcp.auth_cli:main"
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.uv]
 dev-dependencies = [

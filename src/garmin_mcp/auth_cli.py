@@ -10,8 +10,8 @@ import sys
 import getpass
 
 import requests
-from garth.exc import GarthHTTPError
 from garminconnect import Garmin, GarminConnectAuthenticationError
+from garminconnect.exceptions import GarminConnectConnectionError
 
 from garmin_mcp.token_utils import (
     get_token_path,
@@ -128,11 +128,11 @@ def authenticate(token_path: str, token_base64_path: str, force_reauth: bool = F
         garmin.login()
 
         # Save tokens to directory
-        garmin.garth.dump(token_path)
+        garmin.client.dump(token_path)
         print(f"\n✓ OAuth tokens saved to: {os.path.expanduser(token_path)}")
 
         # Save tokens as base64
-        token_base64 = garmin.garth.dumps()
+        token_base64 = garmin.client.dumps()
         expanded_base64_path = os.path.expanduser(token_base64_path)
         with open(expanded_base64_path, "w") as token_file:
             token_file.write(token_base64)
@@ -177,7 +177,7 @@ def authenticate(token_path: str, token_base64_path: str, force_reauth: bool = F
 
         return False
 
-    except GarthHTTPError as e:
+    except GarminConnectConnectionError as e:
         error_msg = str(e)
         print(f"\n✗ Authentication error", file=sys.stderr)
 
